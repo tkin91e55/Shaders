@@ -3,6 +3,8 @@
 		_EmissiveColor ("Emissive Color", Color) = (1,1,1,1)
 		_AmbientColor  ("Ambient Color", Color) = (1,1,1,1)
 		_MySliderValue ("This is a Slider", Range(0,10)) = 2.5
+		//add ramp texuture:
+		_RampTex ("Ramp Texture", 2D) = "white"{} 
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -15,6 +17,8 @@
 		float4 _EmissiveColor;
 		float4 _AmbientColor;
 		float _MySliderValue; 
+		//add ramp texture:
+		sampler2D _RampTex;
 
 		struct Input {
 			float2 uv_MainTex;
@@ -31,8 +35,18 @@
 	inline float4 LightingBassicDiffuse (SurfaceOutput s, fixed3 lightDir, fixed atten)
        	{
        	  	float difLight = max(0, dot (s.Normal, lightDir));
+       	  	//HLambert: Add this line  
+            float hLambert = difLight * 0.5 + 0.5;  
+            //add ramp texture:
+            float3 ramp = tex2D(_RampTex, float2(hLambert)).rgb; 
+            
        	  	float4 col;
-       	  	col.rgb = s.Albedo * _LightColor0.rgb * (difLight * atten * 2);
+       	  	
+       	  	//col.rgb = s.Albedo * _LightColor0.rgb * (difLight * atten * 2);
+       	  	//HLambert: Modify this line
+       	  	//col.rgb = s.Albedo * _LightColor0.rgb * (hLambert * atten * 2);
+       	  	//Add ramp texture:
+       	  	col.rgb = s.Albedo * _LightColor0.rgb * (ramp); 
        	  	col.a = s.Alpha;
        	  	return col;
 	}

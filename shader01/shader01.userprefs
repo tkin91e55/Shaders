@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/CustomShaders/BasicDiffuse.shader">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/CustomShaders/CustomDiffuse.shader">
     <Files>
-      <File FileName="Assets/CustomShaders/BasicDiffuse.shader" Line="1" Column="1" />
+      <File FileName="Assets/CustomShaders/CustomDiffuse.shader" Line="42" Column="13" />
+      <File FileName="Assets/CustomShaders/aNewShader.shader" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
