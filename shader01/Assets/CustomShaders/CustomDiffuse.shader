@@ -16,7 +16,7 @@
 
 		float4 _EmissiveColor;
 		float4 _AmbientColor;
-		float _MySliderValue; 
+		float _MySliderValue;
 		//add ramp texture:
 		sampler2D _RampTex;
 
