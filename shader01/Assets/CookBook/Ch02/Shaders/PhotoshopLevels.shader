@@ -2,7 +2,7 @@ Shader "CookbookShaders/Chapter02/PhotoshopLevels"
 {
 	Properties 
 	{
-		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_MainTexx ("Base (RGB)", 2D) = "white" {}
 		
 		//Add the Input Levels Values
 		_inBlack ("Input Black", Range(0, 255)) = 0
@@ -22,7 +22,7 @@ Shader "CookbookShaders/Chapter02/PhotoshopLevels"
 		CGPROGRAM
 		#pragma surface surf Lambert
 
-		sampler2D _MainTex;
+		sampler2D _MainTexx;
 		
 		//Add these variables
 		//to the CGPROGRAM
@@ -34,7 +34,7 @@ Shader "CookbookShaders/Chapter02/PhotoshopLevels"
 
 		struct Input 
 		{
-			float2 uv_MainTex;
+			float2 uv_MainTexx;
 		};
 		
 		float GetPixelLevel(float pixelColor)
@@ -49,7 +49,7 @@ Shader "CookbookShaders/Chapter02/PhotoshopLevels"
 
 		void surf (Input IN, inout SurfaceOutput o) 
 		{
-			half4 c = tex2D (_MainTex, IN.uv_MainTex);
+			half4 c = tex2D (_MainTexx, IN.uv_MainTexx);
 			
 			//do levels calculations here for each pixel channel.
 			//So we need to process the R, G, and B channels with
