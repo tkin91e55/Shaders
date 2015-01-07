@@ -84,8 +84,8 @@ public class ProceduralTexture : MonoBehaviour
 				
 				//Create a new color value based off of our
 				//Color pixelColor = new Color(Mathf.Max(0.0f, rightDirection),Mathf.Max(0.0f, leftDirection), Mathf.Max(0.0f,upDirection), 1f);
-				Color pixelColor = new Color(pixelDistance, pixelDistance, pixelDistance, 1.0f);
-				//Color pixelColor = new Color(rightDirection, leftDirection, upDirection, 1.0f);
+				//Color pixelColor = new Color(pixelDistance, pixelDistance, pixelDistance, 1.0f);
+				Color pixelColor = new Color(rightDirection, leftDirection, upDirection, 1.0f);
 				proceduralTexture.SetPixel(x,y,pixelColor);
 			}
 		}

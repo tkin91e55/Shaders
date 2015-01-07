@@ -1,9 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/CustomShaders/CustomDiffuse.shader">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/CookBook/Ch03/Shaders/Phong.shader">
     <Files>
-      <File FileName="Assets/CustomShaders/CustomDiffuse.shader" Line="42" Column="13" />
-      <File FileName="Assets/CustomShaders/aNewShader.shader" Line="1" Column="1" />
+      <File FileName="Assets/CookBook/Ch03/Shaders/Phong.shader" Line="35" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
