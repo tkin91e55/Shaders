@@ -12,7 +12,7 @@
         LOD 200
         
         CGPROGRAM
-        #pragma surface surf Lambert
+        #pragma surface surf Lambert vertex:vert
         
         sampler2D _MainTex;
         sampler2D _Bump;
@@ -28,11 +28,20 @@
             INTERNAL_DATA
         };
         
+        void vert (inout appdata_full v) {
+         //convert local normal to world space
+         float4 sn = mul(UNITY_MATRIX_IT_MV, _SnowDirection);
+         if(dot(v.normal, sn.xyz) >= lerp(1,-1, (_Snow*2)/3)) {
+            v.vertex.xyz += (sn.xyz + v.normal) * _SnowDepth * _Snow;
+         }
+        }
+        
         void surf(Input IN, inout SurfaceOutput o) {
             half4 c = tex2D (_MainTex, IN.uv_MainTex);
             
             o.Normal = UnpackNormal(tex2D(_Bump, IN.uv_Bump));
             
+            //lerp function: lerp from 1 to -1 parametized by _Snow from 0 to 1
             if(dot(WorldNormalVector(IN,o.Normal), _SnowDirection.xyz)>=lerp(1,-1,_Snow))
                 o.Albedo = _SnowColor.rgb;
             else
