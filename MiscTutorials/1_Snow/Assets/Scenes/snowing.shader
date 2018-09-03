@@ -2,6 +2,10 @@
     Properties {
         _MainTex ("Base", 2D) = "white" {}
         _Bump("Bump", 2D) = "bump" {}
+        _Snow("Snow Level", Range(0,1)) = 0
+        _SnowColor ("Snow Color", Color) = (1.0,1.0,1.0,1.0)
+        _SnowDirection ("Snow Direction", Vector) = (0,1,0)
+        _SnowDepth("Snow Depth", Range(0,0.3)) = 0.1
     }
     SubShader {
         Tags { "RenderType"="Opaque" }
@@ -12,10 +16,16 @@
         
         sampler2D _MainTex;
         sampler2D _Bump;
+        float _Snow;
+        float4 _SnowColor;
+        float4 _SnowDirection;
+        float _SnowDepth;
         
         struct Input {
             float2 uv_MainTex;
             float2 uv_Bump;
+            float3 worldNormal;
+            INTERNAL_DATA
         };
         
         void surf(Input IN, inout SurfaceOutput o) {
@@ -23,8 +33,12 @@
             
             o.Normal = UnpackNormal(tex2D(_Bump, IN.uv_Bump));
             
-            o.Albedo = c.rgb;
-            o.Alpha = c.a;
+            if(dot(WorldNormalVector(IN,o.Normal), _SnowDirection.xyz)>=lerp(1,-1,_Snow))
+                o.Albedo = _SnowColor.rgb;
+            else
+                o.Albedo = c.rgb;
+                
+            o.Alpha = 1;
         }
         
         ENDCG
