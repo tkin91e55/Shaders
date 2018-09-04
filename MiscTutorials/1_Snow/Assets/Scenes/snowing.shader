@@ -6,6 +6,7 @@
         _SnowColor ("Snow Color", Color) = (1.0,1.0,1.0,1.0)
         _SnowDirection ("Snow Direction", Vector) = (0,1,0)
         _SnowDepth("Snow Depth", Range(0,0.3)) = 0.1
+        _Wetness ("Wetness", Range(0, .5)) = 0.3
     }
     SubShader {
         Tags { "RenderType"="Opaque" }
@@ -20,10 +21,12 @@
         float4 _SnowColor;
         float4 _SnowDirection;
         float _SnowDepth;
+        float _Wetness;
         
         struct Input {
             float2 uv_MainTex;
             float2 uv_Bump;
+            //worldNormal must exist
             float3 worldNormal;
             INTERNAL_DATA
         };
@@ -41,13 +44,11 @@
             
             o.Normal = UnpackNormal(tex2D(_Bump, IN.uv_Bump));
             
-            //lerp function: lerp from 1 to -1 parametized by _Snow from 0 to 1
-            if(dot(WorldNormalVector(IN,o.Normal), _SnowDirection.xyz)>=lerp(1,-1,_Snow))
-                o.Albedo = _SnowColor.rgb;
-            else
-                o.Albedo = c.rgb;
-                
-            o.Alpha = 1;
+            //float difference = step(0,dot(WorldNormalVector(IN, o.Normal), _SnowDirection.xyz) - lerp(1,-1,_Snow));
+            float difference = dot(WorldNormalVector(IN, o.Normal), _SnowDirection.xyz) - lerp(1,-1,_Snow);
+            difference = saturate(difference / _Wetness);
+            o.Albedo = difference*_SnowColor.rgb + (1-difference) * c.rgb;
+            o.Alpha = c.a;
         }
         
         ENDCG
